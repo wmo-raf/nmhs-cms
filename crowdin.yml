@@ -1,3 +1,5 @@
+commit_message: Fix: New translations %two_letters_code%/%original_file_name% from Crowdin
+append_commit_message: false
 files:
   - source: pages/data_request/locale/en/LC_MESSAGES/django.po
     translation: /pages/data_request/locale/%two_letters_code%/LC_MESSAGES/django.po
