@@ -1,0 +1,3 @@
+files:
+  - source: pages/data_request/locale/en/LC_MESSAGES/django.po
+    translation: pages/data_request/locale/%two_letters_code%/LC_MESSAGES/django.po
