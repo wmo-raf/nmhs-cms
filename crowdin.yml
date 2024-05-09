@@ -1,17 +1,17 @@
 files:
   - source: pages/data_request/locale/en/LC_MESSAGES/django.po
-    translation: pages/data_request/locale/%two_letters_code%/LC_MESSAGES/django.po
+    translation: /pages/data_request/locale/%two_letters_code%/LC_MESSAGES/django.po
   - source: pages/cap/locale/en/LC_MESSAGES/django.po
-    translation: pages/cap/locale/%two_letters_code%/LC_MESSAGES/django.po
-  - source: pages/email_subscription/locale/en/LC_MESSAGES/django.po
-    translation: pages/email_subscription/locale/%two_letters_code%/LC_MESSAGES/django.po
-  - source: pages/news/locale/en/LC_MESSAGES/django.po
-    translation: pages/news/locale/%two_letters_code%/LC_MESSAGES/django.po
-  - source: pages/products/locale/en/LC_MESSAGES/django.po
-    translation: pages/products/locale/%two_letters_code%/LC_MESSAGES/django.po
-  - source: pages/services/locale/en/LC_MESSAGES/django.po
-    translation: pages/services/locale/%two_letters_code%/LC_MESSAGES/django.po
-  - source: pages/home/locale/en/LC_MESSAGES/django.po
-    translation: pages/home/locale/%two_letters_code%/LC_MESSAGES/django.po
-  - source: pages/mediacenter/locale/en/LC_MESSAGES/django.po
-    translation: pages/mediacenter/locale/%two_letters_code%/LC_MESSAGES/django.po
+    translation: /pages/cap/locale/%two_letters_code%/LC_MESSAGES/django.po
+  - source: /pages/email_subscription/locale/en/LC_MESSAGES/django.po
+    translation: /pages/email_subscription/locale/%two_letters_code%/LC_MESSAGES/django.po
+  - source: /pages/news/locale/en/LC_MESSAGES/django.po
+    translation: /pages/news/locale/%two_letters_code%/LC_MESSAGES/django.po
+  - source: /pages/products/locale/en/LC_MESSAGES/django.po
+    translation: /pages/products/locale/%two_letters_code%/LC_MESSAGES/django.po
+  - source: /pages/services/locale/en/LC_MESSAGES/django.po
+    translation: /pages/services/locale/%two_letters_code%/LC_MESSAGES/django.po
+  - source: /pages/home/locale/en/LC_MESSAGES/django.po
+    translation: /pages/home/locale/%two_letters_code%/LC_MESSAGES/django.po
+  - source: /pages/mediacenter/locale/en/LC_MESSAGES/django.po
+    translation: /pages/mediacenter/locale/%two_letters_code%/LC_MESSAGES/django.po
