@@ -22,6 +22,8 @@ from wagtail.models import Page
 from wagtail_color_panel.fields import ColorField
 from django.conf import settings
 
+from climweb.base.registries import plugin_registry
+
 CLIMWEB_OPTIONAL_APPS = getattr(settings, "CLIMWEB_OPTIONAL_APPS", [])
 
 HOME_SUBPAGE_TYPES = [
@@ -50,6 +52,8 @@ HOME_SUBPAGE_TYPES = [
 
 if "pages.aviation" in CLIMWEB_OPTIONAL_APPS:
     HOME_SUBPAGE_TYPES.append('aviation.AviationPage')
+
+
 
 
 class HomePage(MetadataPageMixin, Page):

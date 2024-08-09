@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import importlib
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from email.utils import getaddresses
+from pathlib import Path
 
 import django.conf.locale
 import environ
@@ -151,7 +152,20 @@ INSTALLED_APPS = [
 
 CLIMWEB_OPTIONAL_APPS = env.list("CLIMWEB_OPTIONAL_APPS", default=[])
 if CLIMWEB_OPTIONAL_APPS:
+    print(f"Loaded ClimWeb optional apps: {','.join(CLIMWEB_OPTIONAL_APPS)}")
     INSTALLED_APPS += CLIMWEB_OPTIONAL_APPS
+
+CLIMWEB_PLUGIN_DIR = Path(env.str("CLIMWEB_PLUGIN_DIR", "/climweb/plugins"))
+if CLIMWEB_PLUGIN_DIR.exists():
+    CLIMWEB_PLUGIN_FOLDERS = [file for file in CLIMWEB_PLUGIN_DIR.iterdir() if file.is_dir()]
+else:
+    CLIMWEB_PLUGIN_FOLDERS = []
+
+CLIMWEB_PLUGIN_NAMES = [d.name for d in CLIMWEB_PLUGIN_FOLDERS]
+
+if CLIMWEB_PLUGIN_NAMES:
+    print(f"Loaded plugins: {','.join(CLIMWEB_PLUGIN_NAMES)}")
+    INSTALLED_APPS.extend(CLIMWEB_PLUGIN_NAMES)
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, "backup")}
@@ -512,3 +526,26 @@ WAGTAILIMAGES_EXTENSIONS = env.list("WAGTAILIMAGES_EXTENSIONS", default=DEFAULT_
 
 DEFAULT_WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx', 'xlsx', 'pptx', 'csv', 'odt', 'rtf', 'txt', 'key', 'zip', 'doc']
 WAGTAILDOCS_EXTENSIONS = env.list("WAGTAILDOCS_EXTENSIONS", default=DEFAULT_WAGTAILDOCS_EXTENSIONS)
+
+
+class AttrDict(dict):
+    def __getattr__(self, item):
+        return super().__getitem__(item)
+
+    def __setattr__(self, item, value):
+        globals()[item] = value
+
+    def __setitem__(self, key, value):
+        globals()[key] = value
+
+
+for plugin in [*CLIMWEB_PLUGIN_NAMES]:
+    try:
+        mod = importlib.import_module(plugin + ".config.settings.settings")
+        # The plugin should have a setup function which accepts a 'settings' object.
+        # This settings object is an AttrDict shadowing our local variables so the
+        # plugin can access the Django settings and modify them prior to startup.
+        result = mod.setup(AttrDict(vars()))
+    except ImportError as e:
+        print("Could not import %s", plugin)
+        print(e)

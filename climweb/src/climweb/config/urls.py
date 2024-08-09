@@ -14,6 +14,7 @@ from wagtail.urls import WAGTAIL_FRONTEND_LOGIN_TEMPLATE, serve_pattern
 from wagtailcache.cache import cache_page
 
 from climweb.base.views import humans, public_health_check
+from climweb.base.registries import plugin_registry
 
 handler500 = 'base.views.handler500'
 
@@ -73,6 +74,9 @@ if settings.DEBUG:
                       path("test404/", TemplateView.as_view(template_name="404.html")),
                       path("test500/", TemplateView.as_view(template_name="500.html")),
                   ] + urlpatterns
+
+# Add the urls of the registered plugins
+urlpatterns += plugin_registry.urls
 
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
